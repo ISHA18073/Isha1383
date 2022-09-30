@@ -1,0 +1,103 @@
+#include<iostream>
+using namespace std;
+class stack{
+    public:
+int top=0;
+int size;
+int a[];
+void push(int size){
+int t;
+cout<<"enter data u want to push";
+cin>>t;
+if(top==size){
+cout<<"stack is full no more element can be inserted"<<endl;
+}
+else{
+a[++top]=t;
+}
+}
+void pop(){
+if(top==0){
+cout<<"stack is empty no more element can be poped out"<<endl;
+}
+else{
+cout<<"stack after pop out element:"<<a[top]<<endl<<endl;
+top--;
+}
+}
+bool isempty(){
+   if(top==0){
+    return true;
+   }
+else{
+        return false;
+    }
+}
+void clear(){
+    while(isempty()!=true){
+        pop();
+    }
+    cout<<"stack is clear"<<endl;
+}
+void topel(){
+if(top==0){
+    cout<<"stack is empty";
+}
+else{
+    cout<<"top element of the stack is:"<<a[top];
+}
+}
+void display(){
+for(int i=top;i>0;i--){
+cout<<a[i]<<endl;
+}
+}
+};
+int main(){
+    int choice;
+char ch='y';
+stack ob;
+int n;
+cout<<"enter size of stack"<<endl;
+cin>>n;
+while(ch!='n'){
+cout<<"*******************************  MENU  *****************************************************"<<endl;
+cout<<"1. PUSH ELEMENT\n2.POP ELEMENT\n3.TOP ELEMENT OF STACK\n4.CLEAR STACK\n5.CHECK STACK IS EMPTY OR NOT\n";
+cout<<"enter choice"<<endl;
+cin>>choice;
+switch(choice){
+case 1:
+        ob.push(n);
+        ob.display();
+        break;
+case 2:
+        ob.pop();
+        ob.display();
+        break;
+case 3:
+        ob.topel();
+        break;
+case 4:
+        ob.clear();
+        ob.display();
+        break;
+case 5:
+        ob.isempty();
+        if(ob.isempty()==true){
+            cout<<"stack is empty"<<endl;
+        }
+        else{
+            cout<<"stack is not empty"<<endl;
+        }
+        break;
+default:
+    {
+    cout<<"enter valid choice";
+    }
+    break;
+}
+cout<<"do u want continue"<<endl;
+cin>>ch;
+}
+return 0;
+}
