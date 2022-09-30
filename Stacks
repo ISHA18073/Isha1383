@@ -1,0 +1,109 @@
+#include<iostream>
+using namespace std;
+class queue{
+    public:
+int front=-1;
+int rear=-1;
+int size;
+int a[8];
+void enque(int size){
+int t;
+cout<<"enter data u want to add in queue(start at index=0)";
+cin>>t;
+if(rear==size-1){
+cout<<"queue is full no more element can be inserted"<<endl;
+}
+else{
+a[++rear]=t;
+}
+}
+void deque(){
+if(rear==front){
+cout<<"queue is empty no more element can not be dequeued"<<endl;
+}
+else{
+cout<<"queue after dequeue element:"<<a[++front]<<endl<<endl;
+}
+}
+bool isempty(){
+   if(rear==front){
+    return true;
+   }
+else{
+        return false;
+    }
+}
+void clear(){
+    while(isempty()!=true){
+        deque();
+        display();
+    }
+    cout<<"queue is clear"<<endl;
+}
+void topel(){
+if(rear==-1){
+    cout<<"que is empty";
+}
+else{
+    cout<<"top element of the queue is:"<<a[rear];
+}
+}
+void display(){
+for(int i=1+front;i<=rear;i++){
+cout<<a[i]<<" ";
+}
+cout<<endl;
+}
+};
+int main(){
+    cout<<endl;
+    cout<<"  #####*****#####********###### QUEUE:-FIRST COME FIRST OUT STRUCTURE #####*****#####*****######  ";
+    cout<<endl<<endl;
+    int choice;
+char ch='y';
+queue ob;
+int n;
+cout<<"enter size of queue"<<endl;
+cin>>n;
+while(ch!='n'){
+cout<<"*******************************  MENU  *****************************************************"<<endl;
+cout<<"1. ENQUEUE ELEMENT\n2.DEQUEUE ELEMENT\n3.TOP ELEMENT OF QUEUE\n4.CLEAR QUEUE\n5.CHECK QUEUE IS EMPTY OR NOT\n";
+cout<<endl;
+cout<<"enter choice"<<endl;
+cin>>choice;
+switch(choice){
+case 1:
+        ob.enque(n);
+        ob.display();
+        break;
+case 2:
+        ob.deque();
+        ob.display();
+        break;
+case 3:
+        ob.topel();
+        break;
+case 4:
+        ob.clear();
+        ob.display();
+        break;
+case 5:
+        ob.isempty();
+        if(ob.isempty()==true){
+            cout<<"Queue is empty"<<endl;
+        }
+        else{
+            cout<<"Queue is not empty"<<endl;
+        }
+        break;
+default:
+    {
+    cout<<"enter valid choice";
+    }
+    break;
+}
+cout<<"do u want continue(y/n)"<<endl;
+cin>>ch;
+}
+return 0;
+}
