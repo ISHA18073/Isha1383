@@ -1,0 +1,53 @@
+#include<iostream>
+using namespace std;
+class circularq{
+public:
+int size;
+int a[12];
+int front=-1,rear=-1;
+bool isfull(){
+return(front==0&&rear==size-1||front==rear+1);
+}
+bool isempty(){
+return(rear==-1);
+}
+void enqueue(int size){
+int el;
+cout<<"enter the element";
+cin>>el;
+if(front==0&&rear==size-1||front==rear+1){
+    cout<<"queue is full";
+}
+else{
+if(rear==size-1||rear==-1){
+a[0]=el;
+rear=0;
+if(front==-1){
+front=0;
+}
+}else{
+a[++rear]=el;
+}
+}
+}
+void display(){
+for(int i=front;i<=rear;i++)
+{
+cout<<a[i]<<" ";
+}
+}
+};
+int main(){
+char ch='y';
+int size;
+cout<<"enter size";
+cin>>size;
+circularq ob;
+while(ch!='n'){
+ob.enqueue(size);
+ob.display();
+cout<<"do u want continue(y/n)";
+cin>>ch;
+}
+return 0;
+}
