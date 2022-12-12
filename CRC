@@ -1,0 +1,144 @@
+//cyclic redundancy check
+#include <iostream>
+using namespace std;
+int main()
+{
+ int ms;
+ int m[255];
+ cout << "Enter Message Size: ";
+ cin >> ms;
+ cout << "Enter Message: ";
+ for (int i = 0; i < ms; i++)
+ cin >> m[i];
+
+ int gs;
+ int g[64];
+ cout << "Enter Generator Size: ";
+ cin >> gs;
+ cout << "Enter Generator: ";
+ for (int i = 0; i < gs; i++)
+ cin >> g[i];
+ if (!(g[0] == 1 &&
+ g[gs - 1] == 1))
+ {
+ cerr << "\nERROR: MSB and LSB of the Generator must be 1\n";
+ return -1;
+ }
+ cout<<endl;
+
+
+ cout << "*********** SENDER side *********";
+ cout<<endl;
+ cout << "Message: ";
+ for (int i = 0; i < ms; i++)
+ cout << m[i];
+ cout << endl;
+
+ cout << "Generator: ";
+ for (int i = 0; i < gs; i++)
+ cout << g[i];
+ cout << endl;
+
+int t=ms+(gs-1);
+ int codeword[t];
+ for (int i = 0; i <ms; i++)
+ codeword[i] = m[i];
+ for (int i = ms; i < t; i++)
+ codeword[i] = 0;
+
+ for (int i = 0; i < t; i++)
+ cout<<codeword[i];
+ cout<<endl;
+
+
+ int temp[t];
+ for (int i = 0; i < t; i++)
+ temp[i] = codeword[i];
+ for (int i = 0; i < ms; i++)
+ {
+ int j = 0, k = i;
+ if (temp[k] >= g[j])
+ while (j < gs)
+ temp[k++] ^= g[j++];
+ }
+
+
+ int crc[64];
+ for (int i = 0, j = ms; i < (gs - 1); i++, j++)
+ crc[i] = temp[j];
+ cout << "CRC: ";
+ for (int i = 0; i < (gs - 1); i++)
+ cout << crc[i];
+ cout << endl;
+
+ for (int i = 0, j = ms; i < (gs - 1); i++, j++)
+ codeword[j] = crc[i];
+ cout << "Transmitted Codeword: ";
+ for (int i = 0; i <t; i++)
+ cout << codeword[i];
+ cout << endl;
+ cout<<endl;
+ cout << "**************** NOISY CHANNEL SIMULATION *******************";
+ cout<<endl;
+ int nb, n;
+ cout << "Enter Number of Bits to Flip: ";
+ cin >> nb;
+
+ if (nb == 0)
+ cout << "Codeword Not Changed.\n";
+
+ else if (nb > 0 && nb < t)
+ {
+ for (int i = 0; i < nb; i++)
+ {
+ cout << "Enter Bit Position to Flip: ";
+ cin >> n;
+ if (n > 0 && n < t)
+ codeword[n - 1] = codeword[n - 1] == 0 ? 1 : 0;
+ else
+ cout << "Invalid Position. Codeword Not Changed.\n";
+ }
+ }
+ else
+ cout << "Invalid Request. Codeword Not Changed.\n";
+ cout<<endl;
+
+ cout << "*********** RECEIVER *************";
+ cout<<endl;
+ cout << "Received Codeword: ";
+ for (int i = 0; i < t; i++)
+ cout << codeword[i];
+ cout << endl;
+
+ int temp2[t];
+ for (int i = 0; i < t; i++)
+ temp2[i] = codeword[i];
+ for (int i = 0; i < ms; i++)
+ {
+ int j = 0, k = i;
+ if (temp2[k] >= g[j])
+ while (j < gs)
+ temp2[k++] ^= g[j++];
+ }
+
+ int rem[64];
+ for (int i = ms, j = 0; i < t; i++, j++)
+ rem[j] = temp2[i];
+ cout << "Remainder: ";
+ for (int i = 0; i < (gs - 1); i++)
+ cout << rem[i];
+ cout << endl;
+
+ int flag = false;
+ for (int i = 0; i < (gs- 1); i++)
+
+ if (rem[i] != 0)
+ flag = true;
+
+ cout << endl;
+ if (!flag)
+ cout << "TRANSMISSION OK!" << endl;
+ else
+ cout << "TRANSMISSION ERROR DETECTED!" << endl;
+ return 0;
+}
