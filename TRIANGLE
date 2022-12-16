@@ -1,0 +1,11 @@
+import math 
+def areaTriangle(): 
+ s1 = int(input('Enter Side 1: ')) 
+ s2 = int(input('Enter Side 2: ')) 
+ s3 = int(input('Enter Side 3: ')) 
+ assert s1 + s2 > s3 and s1 +s3 > s2 and s2 + s3 > s1,'invalid sides' 
+ s = (s1 + s2 + s3) / 2 
+ return(math.sqrt(s *(s - s1) * (s - s2) *(s - s3)),s1 + s2 + s3) 
+area, perimeter = areaTriangle() 
+print('Area of Triangle:', area, 'sq units') 
+print('Perimeter of Triangle:', perimeter, 'units')
