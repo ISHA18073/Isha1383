@@ -1,0 +1,10 @@
+#include<stdlib.h>
+#include<stdio.h>
+#include<unistd.h>
+int main(){
+	printf("The Kernel version is:");
+	system("cat /proc/sys/kernel/osrelease");
+	printf("The CPU info :");
+	system("cat /proc/cpuinfo");
+	return 0;
+}
